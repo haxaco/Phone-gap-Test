@@ -17,6 +17,8 @@
     
     <gap:plugin name="ChildBrowser" /> <!-- latest release -->
     
+ 
+    
 
     <preference name="phonegap-version" value="2.0.0" />
     <preference name="orientation"      value="default" />
