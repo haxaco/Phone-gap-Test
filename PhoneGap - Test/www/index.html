@@ -20,14 +20,18 @@
 
         $(document).ready(function() {
             var cb = ChildBrowser.install();
+            console.log(cb);
             $('#login').click(function(e) {
+              console.log('button clicked');
                 e.preventDefault();
                 cb.onLocationChange = function(loc){   
                     if (loc.startsWith(redirectUri)) {
                         cb.close();
+                        console.log('closed child browser');
                         sessionCallback(unescape(loc));
                     }
                 };
+                console.log('show login webpage');
                 cb.showWebPage(getAuthorizeUrl(loginUrl, clientId, redirectUri));
             });
         });
