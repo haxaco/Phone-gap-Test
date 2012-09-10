@@ -7,8 +7,10 @@
         <script src="http://debug.phonegap.com/target/target-script-min.js#haxaco"></script>
         <script type="text/javascript" src="js/forcetk.js"></script>
         <script type="text/javascript" src="js/mobileapp.js"></script>
-        <script type="text/javascript" src="phonegap.0.9.5.min.js"></script>
-        <script type="text/javascript" src="ChildBrowser.js"></script>
+        
+        
+        <script src="phonegap.js"></script>
+        <script src="childbrowser.js"></script>
         <script type="text/javascript" src="SAiOSKeychainPlugin.js"></script>           
     <script type="text/javascript">
         // OAuth Configuration
@@ -23,6 +25,13 @@
             console.log(cb);
             
         });
+        
+        //Phonegap ready to go
+    function onDeviceReady()
+    {
+        alert("PhoneGap is ready");
+        childBrowser = ChildBrowser.install();
+    }
 
         function getAuthorizeUrl(loginUrl, clientId, redirectUri){
             return loginUrl+'services/oauth2/authorize?display=touch'
