@@ -144,7 +144,7 @@
 
 			$j(document).ready(function() {
 			    var cb = ChildBrowser.install();
-			    alert(cb);
+			    console.log(cb);
 			    SAiOSKeychainPlugin.install();
 			    window.plugins.keychain.getForKey('refresh_token',
 			    'forcetk',
@@ -158,6 +158,7 @@
 			    },
 			    function(key, error) {
 			        // No refresh token - do OAuth
+			        console.log("No refresh token - do OAuth");
 			        cb.onLocationChange = function(loc) {
 			            if (loc.startsWith(redirectUri)) {
 			                cb.close();
