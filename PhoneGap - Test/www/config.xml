@@ -14,8 +14,6 @@
     </author>
 
     <feature name="http://api.phonegap.com/1.0/device" />
-    
-    <feature name="http://plugins.phonegap.com/ChildBrowser/2.0.1" />
 
     <preference name="phonegap-version" value="2.0.0" />
     <preference name="orientation"      value="default" />
