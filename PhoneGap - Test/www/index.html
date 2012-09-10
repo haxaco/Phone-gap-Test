@@ -21,9 +21,20 @@
         $(document).ready(function() {
             var cb = ChildBrowser.install();
             console.log(cb);
-            $('#login').click(function(e) {
+            
+        });
+
+        function getAuthorizeUrl(loginUrl, clientId, redirectUri){
+            return loginUrl+'services/oauth2/authorize?display=touch'
+                +'&response_type=token&client_id='+escape(clientId)
+                +'&redirect_uri='+escape(redirectUri);
+        }
+        
+        function loginStuff()
+        {
+          
               console.log('button clicked');
-                e.preventDefault();
+                //e.preventDefault();
                 cb.onLocationChange = function(loc){   
                     if (loc.startsWith(redirectUri)) {
                         cb.close();
@@ -33,13 +44,7 @@
                 };
                 console.log('show login webpage');
                 cb.showWebPage(getAuthorizeUrl(loginUrl, clientId, redirectUri));
-            });
-        });
-
-        function getAuthorizeUrl(loginUrl, clientId, redirectUri){
-            return loginUrl+'services/oauth2/authorize?display=touch'
-                +'&response_type=token&client_id='+escape(clientId)
-                +'&redirect_uri='+escape(redirectUri);
+            
         }
 
         function sessionCallback(loc) {
@@ -75,6 +80,6 @@
             }
         }
     </script>
-    <button id="login" type="button">Login</button>
+    <button id="login" onclick="loginStuff()"type="button">Login</button>
     <p id="message">Click here.</p>
 </html>
