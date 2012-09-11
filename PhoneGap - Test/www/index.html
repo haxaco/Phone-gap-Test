@@ -50,7 +50,7 @@
                 //e.preventDefault();
                window.plugins.childBrowser.onLocationChange = function(loc){   
                     if (loc.startsWith(redirectUri)) {
-                        window.plugins.childBrowser..close();
+                        window.plugins.childBrowser.close();
                         console.log('closed child browser');
                         sessionCallback(unescape(loc));
                     }
