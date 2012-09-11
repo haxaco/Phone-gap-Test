@@ -47,13 +47,13 @@
           
               console.log('button clicked');
                 //e.preventDefault();
-                cb.onLocationChange = function(loc){   
+               /* cb.onLocationChange = function(loc){   
                     if (loc.startsWith(redirectUri)) {
                         cb.close();
                         console.log('closed child browser');
                         sessionCallback(unescape(loc));
                     }
-                };
+                };*/
                 console.log('show login webpage');
                 cb.showWebPage(getAuthorizeUrl(loginUrl, clientId, redirectUri));
             
