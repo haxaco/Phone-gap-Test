@@ -45,18 +45,18 @@
         
         function loginStuff()
         {
-           var cb = ChildBrowser.install();
+           //var cb = ChildBrowser.install();
               console.log('button clicked');
                 //e.preventDefault();
-               /* cb.onLocationChange = function(loc){   
+               window.plugins.childBrowser.onLocationChange = function(loc){   
                     if (loc.startsWith(redirectUri)) {
-                        cb.close();
+                        window.plugins.childBrowser..close();
                         console.log('closed child browser');
                         sessionCallback(unescape(loc));
                     }
-                };*/
+                };
                 console.log('show login webpage');
-                cb.showWebPage(getAuthorizeUrl(loginUrl, clientId, redirectUri));
+                window.plugins.childBrowser.showWebPage(getAuthorizeUrl(loginUrl, clientId, redirectUri));
             
         }
 
