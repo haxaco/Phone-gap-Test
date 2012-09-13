@@ -40,7 +40,7 @@
         function getAuthorizeUrl(loginUrl, clientId, redirectUri){
             return loginUrl+'services/oauth2/authorize?display=touch'
                 +'&response_type=token&client_id='+escape(clientId)
-                +'&redirect_uri='+escape(redirectUri);
+                +'&redirect_uri='+escape(redirectUri)+'&scope=full';
         }
         
         function loginStuff()
