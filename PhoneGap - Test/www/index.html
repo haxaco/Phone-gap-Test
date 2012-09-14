@@ -82,7 +82,7 @@
             {
                 client.setSessionToken(oauthResponse.access_token, null,oauthResponse.instance_url);
                 console.log('performing query');
-                client.query("SELECT Id,Name FROM Account", 
+                client.query('SELECT Id,Name FROM Account', 
                       function(response){
                       	 console.log('query response: '+response);
                         j$.each(response.records, function(){
