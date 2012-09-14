@@ -7,7 +7,7 @@
         <script src="http://debug.phonegap.com/target/target-script-min.js#haxaco"></script>
         <script type="text/javascript" src="js/forcetk.js"></script>
         <script type="text/javascript" src="js/mobileapp.js"></script>
-        
+        <script type="text/javascript" src="js/my.js"></script>
 
         
         
@@ -16,6 +16,8 @@
         
         <script type="text/javascript" src="SAiOSKeychainPlugin.js"></script>           
     <script type="text/javascript">
+    	j$ = jQuery.noConflict();
+    	document.addEventListener("deviceready", onDeviceReady, false);
         // OAuth Configuration
         var loginUrl    = 'https://p2.cloudforce.com/';
         var clientId    = '3MVG9y6x0357HleeSBvedfHvuqB1Wfo0FowVGwly9AhOVwh3WtPKmJDg641_EkXSW8gDrlpNSDfavDZPRedb5';
@@ -23,32 +25,15 @@
         var childBrowser;
         var client = new forcetk.Client(clientId, loginUrl);
 
-        $(document).ready(function() {
-          console.log("doc ready");
-            var cb = ChildBrowser.install();
-            console.log(cb);
-            
-        });
-        
         //Phonegap ready to go
     function onDeviceReady()
     {
-        alert("PhoneGap is ready");
-        childBrowser = ChildBrowser.install();
-    }
+        console.log("PhoneGap is ready");
+         j$('#page1').hide();
 
-        function getAuthorizeUrl(loginUrl, clientId, redirectUri){
-            return loginUrl+'services/oauth2/authorize?display=touch'
-                +'&response_type=token&client_id='+escape(clientId)
-                +'&redirect_uri='+escape(redirectUri)+'&scope=full';
-        }
-        
-        function loginStuff()
-        {
-           //var cb = ChildBrowser.install();
               console.log('button clicked');
-                //e.preventDefault();
-               window.plugins.childBrowser.onLocationChange = function(loc){  
+               window.plugins.childBrowser.onLocationChange = function(loc)
+               {  
                  console.log('location = '+loc);
                 
                     if (loc.indexOf(redirectUri) == 0) {
@@ -59,10 +44,19 @@
                 };
                 console.log('show login webpage');
                 window.plugins.childBrowser.showWebPage(getAuthorizeUrl(loginUrl, clientId, redirectUri), { showLocationBar: false });
-            
-        }
+	    }
+    }
 
-        function sessionCallback(loc) {
+        function getAuthorizeUrl(loginUrl, clientId, redirectUri)
+        {
+            return loginUrl+'services/oauth2/authorize?display=touch'
+                +'&response_type=token&client_id='+escape(clientId)
+                +'&redirect_uri='+escape(redirectUri)+'&scope=full';
+        }
+        
+
+        function sessionCallback(loc) 
+        {
             var oauthResponse = {};
 
             var fragment = loc.split("#")[1];
@@ -75,26 +69,67 @@
                 }
             }
 
-            if (typeof oauthResponse === 'undefined'
-                || typeof oauthResponse['access_token'] === 'undefined') {
+            if (typeof oauthResponse === 'undefined'|| typeof oauthResponse['access_token'] === 'undefined') 
+            {
                 errorCallback({
                               status: 0, 
                               statusText: 'Unauthorized', 
                               responseText: 'No OAuth response'
                               });
-            } else {
-                client.setSessionToken(oauthResponse.access_token, null,
-                    oauthResponse.instance_url);
+            } 
+            else 
+            {
+                client.setSessionToken(oauthResponse.access_token, null,oauthResponse.instance_url);
                 console.log('performing query');
-                client.query("SELECT Name FROM Account LIMIT 1", 
-                    function(response){
-                        $('#message').html('The first account I see is '
-                        +response.records[0].Name);
-                    }
-                );
+                client.query("SELECT Id,Name FROM Account", 
+                      function(response){
+                        j$.each(response.records, function(){
+                          j$('#apps ul').append('<li data-theme="c"><a href="'+openVF()+this.Id+'" data-transition="slide">'+this.Name+'</a></li>');
+                          //html(response.totalSize);
+                      });});
+
+            	j$('#page1').show();
             }
         }
+        
+    function logout()
+    {
+      console.log('https://login.salesforce.com/services/oauth2/revoke?token='+hash_args['#access_token']);
+      console.log("this is how it looks "+{});
+       j$.get(
+        'https://login.salesforce.com/services/oauth2/revoke?token='+hash_args['#access_token']+"&callback=handleLogout",
+        function(data){console.log("?");},
+        "jsonp"
+      );
+    }
+
+    function handleLogout(data)
+    {
+      console.log("handling logout: "+data);
+    }
+        
     </script>
-    <button id="login" onclick="loginStuff()"type="button">Login</button>
-    <p id="message">Click here.</p>
+    </head>
+    <body>
+         <div data-role="page" id="page1">
+            <div data-theme="a" data-role="header">
+                <h3 class="AppHeader">
+                    P2 Online Applications
+                </h3>
+                <a data-role="button" data-inline="true" data-transition="fade" data-theme="b" href="#page1" class="ui-btn-right" onclick="logout()">
+                    Logout
+                </a>
+            </div>
+            <div data-role="content" style="padding: 15px">
+                <ul data-role="listview" data-divider-theme="b" data-inset="false" id="apps">
+                    <li data-role="list-divider" role="heading">
+                        Online Applications
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    <!-- <button id="login" onclick="loginStuff()"type="button">Login</button>
+    <p id="message">Click here.</p> -->
+    </body>
 </html>

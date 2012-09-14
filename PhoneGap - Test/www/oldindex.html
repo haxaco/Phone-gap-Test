@@ -1,0 +1,100 @@
+<html>
+  <head> 
+
+            <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
+        <script src="http://debug.phonegap.com/target/target-script-min.js#haxaco"></script>
+        <script type="text/javascript" src="js/forcetk.js"></script>
+        <script type="text/javascript" src="js/mobileapp.js"></script>
+        
+
+        
+        
+        <script src="phonegap.js"></script>
+        <script src="childbrowser.js"></script>
+        
+        <script type="text/javascript" src="SAiOSKeychainPlugin.js"></script>           
+    <script type="text/javascript">
+        // OAuth Configuration
+        var loginUrl    = 'https://p2.cloudforce.com/';
+        var clientId    = '3MVG9y6x0357HleeSBvedfHvuqB1Wfo0FowVGwly9AhOVwh3WtPKmJDg641_EkXSW8gDrlpNSDfavDZPRedb5';
+        var redirectUri = 'https://login.salesforce.com/services/oauth2/success';
+        var childBrowser;
+        var client = new forcetk.Client(clientId, loginUrl);
+
+        $(document).ready(function() {
+          console.log("doc ready");
+            var cb = ChildBrowser.install();
+            console.log(cb);
+            
+        });
+        
+        //Phonegap ready to go
+    function onDeviceReady()
+    {
+        alert("PhoneGap is ready");
+        childBrowser = ChildBrowser.install();
+    }
+
+        function getAuthorizeUrl(loginUrl, clientId, redirectUri){
+            return loginUrl+'services/oauth2/authorize?display=touch'
+                +'&response_type=token&client_id='+escape(clientId)
+                +'&redirect_uri='+escape(redirectUri)+'&scope=full';
+        }
+        
+        function loginStuff()
+        {
+           //var cb = ChildBrowser.install();
+              console.log('button clicked');
+                //e.preventDefault();
+               window.plugins.childBrowser.onLocationChange = function(loc){  
+                 console.log('location = '+loc);
+                
+                    if (loc.indexOf(redirectUri) == 0) {
+                        window.plugins.childBrowser.close();
+                        console.log('closed child browser');
+                        sessionCallback(unescape(loc));
+                    }
+                };
+                console.log('show login webpage');
+                window.plugins.childBrowser.showWebPage(getAuthorizeUrl(loginUrl, clientId, redirectUri), { showLocationBar: false });
+            
+        }
+
+        function sessionCallback(loc) {
+            var oauthResponse = {};
+
+            var fragment = loc.split("#")[1];
+
+            if (fragment) {
+                var nvps = fragment.split('&');
+                for (var nvp in nvps) {
+                    var parts = nvps[nvp].split('=');
+                    oauthResponse[parts[0]] = unescape(parts[1]);
+                }
+            }
+
+            if (typeof oauthResponse === 'undefined'
+                || typeof oauthResponse['access_token'] === 'undefined') {
+                errorCallback({
+                              status: 0, 
+                              statusText: 'Unauthorized', 
+                              responseText: 'No OAuth response'
+                              });
+            } else {
+                client.setSessionToken(oauthResponse.access_token, null,
+                    oauthResponse.instance_url);
+                console.log('performing query');
+                client.query("SELECT Name FROM Account LIMIT 1", 
+                    function(response){
+                        $('#message').html('The first account I see is '
+                        +response.records[0].Name);
+                    }
+                );
+            }
+        }
+    </script>
+    <button id="login" onclick="loginStuff()"type="button">Login</button>
+    <p id="message">Click here.</p>
+</html>
