@@ -84,7 +84,7 @@
                 console.log('performing query');
                 client.query("SELECT Id,Name FROM Account", 
                       function(response){
-                      	 console.log('query response');
+                      	 console.log('query response: '+response);
                         j$.each(response.records, function(){
                           j$('#apps ul').append('<li data-theme="c"><a href="'+openVF()+this.Id+'" data-transition="slide">'+this.Name+'</a></li>');
                           //html(response.totalSize);
