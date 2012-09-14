@@ -36,7 +36,8 @@
                {  
                  console.log('location = '+loc);
                 
-                    if (loc.indexOf(redirectUri) == 0) {
+                    if (loc.indexOf(redirectUri) == 0) 
+                    {
                         window.plugins.childBrowser.close();
                         console.log('closed child browser');
                         sessionCallback(unescape(loc));
@@ -44,7 +45,7 @@
                 };
                 console.log('show login webpage');
                 window.plugins.childBrowser.showWebPage(getAuthorizeUrl(loginUrl, clientId, redirectUri), { showLocationBar: false });
-	    }
+	    
     }
 
         function getAuthorizeUrl(loginUrl, clientId, redirectUri)
@@ -129,7 +130,7 @@
                 </ul>
             </div>
         </div>
-    <!-- <button id="login" onclick="loginStuff()"type="button">Login</button>
-    <p id="message">Click here.</p> -->
+    <button id="loginButton" onclick="loginStuff()"type="button">Login</button>
+    <!-- <p id="message">Click here.</p> -->
     </body>
 </html>
