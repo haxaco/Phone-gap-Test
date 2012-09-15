@@ -90,7 +90,7 @@
                           j$('#apps').append('<li data-theme="c"><a href="'+openVF()+this.Id+'" data-transition="slide">'+this.Name+'</a></li>');
                           //html(response.totalSize);
                       });
-                      	
+                      		j$('#apps').listview('refresh');
                       });
                       
 
@@ -145,7 +145,6 @@
                 </ul>
             </div>
         </div>
-    <button id="loginButton" onclick="loginStuff()"type="button">Login</button>
     <!-- <p id="message">Click here.</p> -->
     </body>
 </html>
