@@ -86,20 +86,31 @@
                       function(response){
                       	 console.log('query response: '+response);
                         j$.each(response.records, function(){
+                        	console.log(openVF()+this.Id+" - "+this.Name);
                           j$('#apps ul').append('<li data-theme="c"><a href="'+openVF()+this.Id+'" data-transition="slide">'+this.Name+'</a></li>');
                           //html(response.totalSize);
                       });});
+                      j$('#apps').listview('refresh');
 
             	j$('#page1').show();
             }
         }
         
+     function openVF()
+    {
+      //https://na12.salesforce.com/secur/frontdoor.jsp?sid=00DU0000000L6VL!AQcAQPPLP0xTCwux3O1lJo1qeXxzAiE3Oe9k2uA0_yTCI7yPKODo3MpzF65TUWZNKko_jm6dbf11Zah0fJKzuV_R8uy.TVoN&retURL=/a04E0000001cnfl
+      console.log("opening VF page");
+      console.log( encodeURI(client.instanceUrl+"/secur/frontdoor.jsp?sid="+client.sessionId+"&retURL=/a04E0000001cnfl"));
+      //window.location = hash_args['instance_url']+"/secur/frontdoor.jsp?sid="+hash_args['refresh_token']+"&retURL=/a04E0000001cnfl";
+      return encodeURI(client.instanceUrl+"/secur/frontdoor.jsp?sid="+client.sessionId+"&retURL=/");
+    }
+        
     function logout()
     {
-      console.log('https://login.salesforce.com/services/oauth2/revoke?token='+hash_args['#access_token']);
-      console.log("this is how it looks "+{});
+      console.log('https://login.salesforce.com/services/oauth2/revoke?token='+client.sessionId);
+      
        j$.get(
-        'https://login.salesforce.com/services/oauth2/revoke?token='+hash_args['#access_token']+"&callback=handleLogout",
+        'https://login.salesforce.com/services/oauth2/revoke?token='+client.sessionId+"&callback=handleLogout",
         function(data){console.log("?");},
         "jsonp"
       );
