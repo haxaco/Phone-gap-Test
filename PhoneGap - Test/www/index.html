@@ -17,7 +17,7 @@
         <script type="text/javascript" src="SAiOSKeychainPlugin.js"></script>           
     <script type="text/javascript">
     	j$ = jQuery.noConflict();
-    	//document.addEventListener("deviceready", onDeviceReady, false);
+    	document.addEventListener("deviceready", onDeviceReady, false);
         // OAuth Configuration
         var loginUrl    = 'https://p2.cloudforce.com/';
         var clientId    = '3MVG9y6x0357HleeSBvedfHvuqB1Wfo0FowVGwly9AhOVwh3WtPKmJDg641_EkXSW8gDrlpNSDfavDZPRedb5';
@@ -26,7 +26,7 @@
         var client = new forcetk.Client(clientId, loginUrl);
 
         //Phonegap ready to go
-    function loginStuff()
+    function onDeviceReady()
     {
         console.log("PhoneGap is ready");
          j$('#page1').hide();
@@ -89,10 +89,13 @@
                         	console.log(openVF()+this.Id+" - "+this.Name);
                           j$('#apps').append('<li data-theme="c"><a href="'+openVF()+this.Id+'" data-transition="slide">'+this.Name+'</a></li>');
                           //html(response.totalSize);
-                      });});
-                      j$('#apps').listview('refresh');
+                      });
+                      	
+                      });
+                      
 
             	j$('#page1').show();
+            	j$('#apps').listview('refresh');
             }
         }
         
