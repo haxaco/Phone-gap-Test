@@ -86,8 +86,8 @@
                       function(response){
                       	 console.log('query response: '+response);
                         j$.each(response.records, function(){
-                        	console.log(openVF()+this.Id+" - "+this.Name);
-                          j$('#apps').append('<li data-theme="c"><a href="# data-transition="slide" onclick="openVF('+this.Id+')>'+this.Name+'</a></li>');
+                        	//console.log(openVF()+this.Id+" - "+this.Name);
+                          j$('#apps').append('<li data-theme="c"><a href="#" data-transition="slide" onclick="openVF('+this.Id+')">'+this.Name+'</a></li>');
                           //html(response.totalSize);
                       });
                       		j$('#apps').listview('refresh');
