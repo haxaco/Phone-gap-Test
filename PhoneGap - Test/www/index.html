@@ -82,12 +82,12 @@
             {
                 client.setSessionToken(oauthResponse.access_token, null,oauthResponse.instance_url);
                 console.log('performing query');
-                client.query('SELECT Id,Name FROM Account', 
+                client.query('SELECT Id,Name FROM P2Express__Online_Application__c', 
                       function(response){
                       	 console.log('query response: '+response);
                         j$.each(response.records, function(){
                         	console.log(openVF()+this.Id+" - "+this.Name);
-                          j$('#apps').append('<li data-theme="c"><a href="'+openVF()+this.Id+'" data-transition="slide">'+this.Name+'</a></li>');
+                          j$('#apps').append('<li data-theme="c"><a href="# data-transition="slide" onclick="openVF('+this.Id+')>'+this.Name+'</a></li>');
                           //html(response.totalSize);
                       });
                       		j$('#apps').listview('refresh');
@@ -99,13 +99,16 @@
             }
         }
         
-     function openVF()
+     function openVF(id)
     {
       //https://na12.salesforce.com/secur/frontdoor.jsp?sid=00DU0000000L6VL!AQcAQPPLP0xTCwux3O1lJo1qeXxzAiE3Oe9k2uA0_yTCI7yPKODo3MpzF65TUWZNKko_jm6dbf11Zah0fJKzuV_R8uy.TVoN&retURL=/a04E0000001cnfl
       console.log("opening VF page");
+      //$('.ui-content').load('http://jquerymobile.com');
       console.log( encodeURI(client.instanceUrl+"/secur/frontdoor.jsp?sid="+client.sessionId+"&retURL=/a04E0000001cnfl"));
       //window.location = hash_args['instance_url']+"/secur/frontdoor.jsp?sid="+hash_args['refresh_token']+"&retURL=/a04E0000001cnfl";
-      return encodeURI(client.instanceUrl+"/secur/frontdoor.jsp?sid="+client.sessionId+"&retURL=/");
+      var url = encodeURI(client.instanceUrl+"/secur/frontdoor.jsp?sid="+client.sessionId+"&retURL=/"+id);
+      
+      $('#pageContent').load(url);
     }
         
     function logout()
@@ -136,7 +139,7 @@
                     Logout
                 </a>
             </div>
-            <div data-role="content" style="padding: 15px">
+            <div id="pageContent" data-role="content" style="padding: 15px">
                 <ul data-role="listview" data-divider-theme="b" data-inset="false" id="apps">
                     <li data-role="list-divider" role="heading">
                         Online Applications
