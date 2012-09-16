@@ -108,7 +108,7 @@
       //window.location = hash_args['instance_url']+"/secur/frontdoor.jsp?sid="+hash_args['refresh_token']+"&retURL=/a04E0000001cnfl";
       var url = encodeURI(client.instanceUrl+"/secur/frontdoor.jsp?sid="+client.sessionId+"&retURL=/"+id);
       
-      $('#pageContent').load(url);
+      j$('#pageContent').load(url);
     }
         
     function logout()
