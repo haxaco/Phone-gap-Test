@@ -103,7 +103,7 @@
                       	 console.log('query response: '+response);
                         j$.each(response.records, function(){
                         	console.log(this.Id+" - "+this.Name);
-                          j$('#apps').append('<li data-theme="c"><a href="#page2" onClick="openVF('+this.Id+')" data-transition="slide">'+this.Name+'</a></li>');
+                          j$('#apps').append('<li data-theme="c"><a href="#page2" onTap="openVF('+this.Id+')" data-transition="slide">'+this.Name+'</a></li>');
                           //html(response.totalSize);
                       });
                       		j$('#apps').listview('refresh');
