@@ -111,7 +111,7 @@
                       
 
             	j$('#page1').show();
-            	j$( '#app').on( "vclick", "li a", function( e ) {
+            	j$( '#app').on( 'tap', 'li a', function( e ) {
             		console.log(e.delegateTarget.firstElementChild.id);
             		var id = e.delegateTarget.firstElementChild.id;
             		openVF(id);
@@ -129,6 +129,7 @@
       //window.location = hash_args['instance_url']+"/secur/frontdoor.jsp?sid="+hash_args['refresh_token']+"&retURL=/a04E0000001cnfl";
       var url = encodeURI(client.instanceUrl+"/secur/frontdoor.jsp?sid="+client.sessionId+"&retURL=/"+id);
       
+      console.log('adding iframe to div: '+url);
       //j$('#pageContent').load(url);
       j$('.frameDiv').attr('src',url);
     }
