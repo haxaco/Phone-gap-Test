@@ -103,7 +103,7 @@
                       	 console.log('query response: '+response);
                         j$.each(response.records, function(){
                         	console.log(this.Id+" - "+this.Name+" - "+this.P2Express__Deal__r.P2Express__MerchantName__c);
-                          j$('#apps').append('<li data-theme="c" ><a href="#" id="'+this.Id+'" data-transition="slide">'+this.Name+'</a></li>');
+                          j$('#apps').append('<li data-theme="c" ><a href="#" id="'+this.Id+'" data-transition="slide">'+this.P2Express__Deal__r.P2Express__MerchantName__c+' - '+this.P2Express__Online_Application_Type__r.Name+'</a></li>');
                           //html(response.totalSize);
                       });
                       		j$('#apps').listview('refresh');
