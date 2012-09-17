@@ -113,8 +113,8 @@
             	j$('#page1').show();
             	j$( '#apps').on( 'tap', 'li a', function( e ) {
             		console.log(e.delegateTarget.firstElementChild.id);
-            		var id = e.delegateTarget.firstElementChild.id;
-            		openVF(id);
+            		var pageId = e.delegateTarget.firstElementChild.id;
+            		openVF(pageId);
             	} ); 
             	j$('#apps').listview('refresh');
             }
@@ -123,7 +123,7 @@
      function openVF(id)
     {
       //https://na12.salesforce.com/secur/frontdoor.jsp?sid=00DU0000000L6VL!AQcAQPPLP0xTCwux3O1lJo1qeXxzAiE3Oe9k2uA0_yTCI7yPKODo3MpzF65TUWZNKko_jm6dbf11Zah0fJKzuV_R8uy.TVoN&retURL=/a04E0000001cnfl
-      console.log("opening VF page");
+      console.log("opening VF page for: "+id);
       //$('.ui-content').load('http://jquerymobile.com');
       console.log( encodeURI(client.instanceUrl+"/secur/frontdoor.jsp?sid="+client.sessionId+"&retURL=/a04E0000001cnfl"));
       //window.location = hash_args['instance_url']+"/secur/frontdoor.jsp?sid="+hash_args['refresh_token']+"&retURL=/a04E0000001cnfl";
@@ -131,7 +131,7 @@
       
       console.log('adding iframe to div: '+url);
       //j$('#pageContent').load(url);
-      j$('.frameDiv').attr('src',url);
+      j$('.pageFrame').attr('src',url);
     }
         
     function logout()
