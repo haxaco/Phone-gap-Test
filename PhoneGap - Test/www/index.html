@@ -111,7 +111,7 @@
                       
 
             	j$('#page1').show();
-            	$( '#app').on( "vclick", "li a", function( e ) {
+            	j$( '#app').on( "vclick", "li a", function( e ) {
             		console.log(e.delegateTarget.firstElementChild.id);
             		var id = e.delegateTarget.firstElementChild.id;
             		openVF(id);
