@@ -114,7 +114,7 @@
             	j$( '#apps').on( 'tap', 'li a', function( e ) {
             		console.log(e.delegateTarget.firstElementChild.id);
             		var pageId = e.delegateTarget.firstElementChild.id;
-            		j$('#page1').hide();
+            		j$.mobile.changePage('#page2',{transition: 'slide'});
             		openVF(pageId);
             		
             	} ); 
@@ -180,7 +180,7 @@
                 </ul>
             </div>
         </div>
-        <div data-role="page" id="page2" data-theme="b" data-content-theme="b">
+        <div data-role="page" id="page2">
             <div data-theme="a" data-role="header">
                 <h3 class="AppHeader">
                     P2 Online Applications
@@ -189,7 +189,7 @@
                     Logout
                 </a>
             </div>
-            <div class="frameDiv" data-role="content" style="background-color:pink">
+            <div class="frameDiv" data-role="content">
                 <iframe class="pageFrame" src="about:blank"></iframe>
             </div>
         </div>
