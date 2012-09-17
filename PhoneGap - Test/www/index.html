@@ -98,7 +98,7 @@
             {
                 client.setSessionToken(oauthResponse.access_token, null,oauthResponse.instance_url);
                 console.log('performing query');
-                client.query('SELECT Id,Name FROM P2Express__Online_Application__c', 
+                client.query('SELECT Id,Name,P2Express__Deal__r.P2Express__MerchantName__c ,P2Express__Online_Application_Type__r.Name FROM P2Express__Online_Application__c', 
                       function(response){
                       	 console.log('query response: '+response);
                         j$.each(response.records, function(){
