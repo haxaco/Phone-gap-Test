@@ -45,7 +45,7 @@
     function onDeviceReady()
     {
         console.log("PhoneGap is ready");
-         j$('#page1').hide();
+        // j$('#page1').hide();
 
               console.log('button clicked');
                window.plugins.childBrowser.onLocationChange = function(loc)
@@ -103,7 +103,7 @@
                       	 console.log('query response: '+response);
                         j$.each(response.records, function(){
                         	console.log(this.Id+" - "+this.Name);
-                          j$('#apps').append('<li data-theme="c" id="'+this.Id+'"><a href="#page2" data-transition="slide">'+this.Name+'</a></li>');
+                          j$('#apps').append('<li data-theme="c" id="'+this.Id+'"><a href="#" data-transition="slide">'+this.Name+'</a></li>');
                           //html(response.totalSize);
                       });
                       		j$('#apps').listview('refresh');
