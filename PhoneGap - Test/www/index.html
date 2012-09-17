@@ -113,7 +113,7 @@
             	j$('#page1').show();
             	j$( '#apps').on( 'tap', 'li a', function( e ) {
             		console.log('ids: '+e);
-            		console.log('this is: '+j$(this).html);
+            		console.log('this is: '+j$(this).html());
             		console.log('or this is: '+event.target.id);
             		var pageId = e.delegateTarget.firstElementChild.id;
             		j$.mobile.changePage('#page2',{transition: 'slide'});
