@@ -111,7 +111,7 @@
                       
 
             	j$('#page1').show();
-            	j$( '#app').on( 'tap', 'li a', function( e ) {
+            	j$( '#apps').on( 'tap', 'li a', function( e ) {
             		console.log(e.delegateTarget.firstElementChild.id);
             		var id = e.delegateTarget.firstElementChild.id;
             		openVF(id);
