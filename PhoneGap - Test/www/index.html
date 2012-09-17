@@ -114,8 +114,9 @@
             	j$( '#apps').on( 'tap', 'li a', function( e ) {
             		console.log('ids: '+e);
             		console.log('this is: '+j$(this).html());
-            		console.log('or this is: '+event.target.id);
-            		var pageId = e.delegateTarget.firstElementChild.id;
+            		console.log('this is: '+j$(this).attr('id'));
+            		
+            		var pageId = j$(this).attr('id');
             		j$.mobile.changePage('#page2',{transition: 'slide'});
             		openVF(pageId);
             		
