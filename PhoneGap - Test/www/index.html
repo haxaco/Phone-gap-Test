@@ -2,6 +2,22 @@
   <head> 
 
             <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
+             <style type="text/css">
+            .AppHeader {
+                text-align: left !important;
+                margin-left: 2em !important;
+            }
+
+            .frameDiv {
+                padding : 0px !important;
+                height: 100% !important;
+            }
+            .pageFrame {
+                border: 0;
+                width: 100%;
+                height: 100%;
+            }
+        </style>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
         <script type="text/javascript" src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
         <script src="http://debug.phonegap.com/target/target-script-min.js#haxaco"></script>
@@ -87,7 +103,7 @@
                       	 console.log('query response: '+response);
                         j$.each(response.records, function(){
                         	console.log(this.Id+" - "+this.Name);
-                          j$('#apps').append('<li data-theme="c" onClick="openVF('+this.Id+')" ><a href="#" data-transition="slide">'+this.Name+'</a></li>');
+                          j$('#apps').append('<li data-theme="c" onClick="openVF('+this.Id+')" ><a href="#page2" data-transition="slide">'+this.Name+'</a></li>');
                           //html(response.totalSize);
                       });
                       		j$('#apps').listview('refresh');
@@ -108,7 +124,8 @@
       //window.location = hash_args['instance_url']+"/secur/frontdoor.jsp?sid="+hash_args['refresh_token']+"&retURL=/a04E0000001cnfl";
       var url = encodeURI(client.instanceUrl+"/secur/frontdoor.jsp?sid="+client.sessionId+"&retURL=/"+id);
       
-      j$('#pageContent').load(url);
+      //j$('#pageContent').load(url);
+      j$('.frameDiv').html(' <iframe class="pageFrame" src="'+url+'"></iframe>');
     }
         
     function logout()
@@ -126,6 +143,13 @@
     {
       console.log("handling logout: "+data);
     }
+    
+    function addFrame(url)
+           {
+                console.log('adding iframe to div');
+                //var url = 'https://na9.salesforce.com/secur/frontdoor.jsp?sid=00DE0000000bqLF!AQoAQPOxNcFi3qHcLPLq9lC3Ky7N0gOIHsQwIUHN6fsJmgISAVtWDDCSEyFH5CA1x5rsfOH0hHmMI.jU89fZBD6YpflpvVOx&retURL=/a04E0000001cnfl';
+                j$('.frameDiv').html(' <iframe class="pageFrame" src="'+url+'"></iframe>');
+           }
         
     </script>
     </head>
@@ -146,6 +170,19 @@
                     </li>
 
                 </ul>
+            </div>
+        </div>
+        <div data-role="page" id="page2">
+            <div data-theme="a" data-role="header">
+                <h3 class="AppHeader">
+                    P2 Online Applications
+                </h3>
+                <a data-role="button" data-inline="true" data-transition="fade" data-theme="b" href="#page1" class="ui-btn-right">
+                    Logout
+                </a>
+            </div>
+            <div class="frameDiv" data-role="content" style="padding: 15px">
+                <!-- <iframe class="pageFrame" src="http://www.salesforce.com"></iframe> -->
             </div>
         </div>
     <!-- <p id="message">Click here.</p> -->
