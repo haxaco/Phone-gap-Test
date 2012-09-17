@@ -114,9 +114,9 @@
             	j$( '#apps').on( 'tap', 'li a', function( e ) {
             		console.log('ids: '+e);
             		console.log('1this is: '+j$(this).html());
-            		console.log('2this is: '+j$(this).attr('id'));
+            		//console.log('2this is: '+j$(this).attr('id'));
             		console.log('3this is: '+j$(this));
-            		console.log('4this is: '+j$('#'+this);
+            		//console.log('4this is: '+j$('#'+this);
             		var pageId = j$(this).attr('id');
             		j$.mobile.changePage('#page2',{transition: 'slide'});
             		openVF(pageId);
